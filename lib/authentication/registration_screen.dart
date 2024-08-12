@@ -4,19 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
-import 'package:tictoc_clone_app/authentication/registration_screen.dart';
-import 'package:tictoc_clone_app/widgets/text_input_widget.dart';
+import 'package:tictoc_clone_app/authentication/authentication_controller.dart';
+import 'package:tictoc_clone_app/authentication/login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+import '../widgets/text_input_widget.dart';
+
+class RegistrationScreen extends StatefulWidget {
+  const RegistrationScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  TextEditingController userNmaeTextEditingController = TextEditingController();
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
+  final authenticationController = Get.put(AuthenticationController());
   bool showProgessBar = false;
   @override
   Widget build(BuildContext context) {
@@ -28,26 +32,61 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 100,
               ),
-              Image.asset(
-                "assets/tiktok.png",
-                width: 200,
-              ),
               Text(
-                'Welcome',
+                'Create Account',
                 style: GoogleFonts.acme(
                     fontSize: 34,
                     color: Colors.grey,
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                'Glad to see you!',
+                'to  get Startedd Now!',
                 style: GoogleFonts.acme(
                   fontSize: 34,
                   color: Colors.grey,
                 ),
               ),
               SizedBox(
+                height: 16,
+              ),
+              GestureDetector(
+                onTap: () {
+                  AlertDialog(
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            authenticationController.captureImageWithCamera();
+                          },
+                          child: Column(
+                            children: [Icon(Icons.image), Text('Gallary')],
+                          )),
+                      TextButton(
+                          onPressed: () {
+                            authenticationController.captureImageWithCamera();
+                          },
+                          child: Column(
+                            children: [Icon(Icons.camera), Text('Camera')],
+                          ))
+                    ],
+                  );
+                  authenticationController.chooseImageFromGallary();
+                },
+                child: CircleAvatar(
+                  radius: 80,
+                  backgroundImage: AssetImage('assets/profile_avatar.png'),
+                  backgroundColor: Colors.black,
+                ),
+              ),
+              SizedBox(
                 height: 30,
+              ),
+              TextInputWidget(
+                  textEditingController: userNmaeTextEditingController,
+                  labelString: 'Username',
+                  iconData: Icons.person_outline,
+                  isObsecure: false),
+              SizedBox(
+                height: 25,
               ),
               TextInputWidget(
                   textEditingController: emailTextEditingController,
@@ -83,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             child: Center(
                               child: Text(
-                                'Login',
+                                'Sign Up',
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w700,
@@ -99,15 +138,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Don't have an account? ",
+                              "Already have an account? ",
                               style:
                                   TextStyle(fontSize: 16, color: Colors.grey),
                             ),
                             InkWell(
                               onTap: () {
-                                Get.to(() => RegistrationScreen());
+                                Get.to(() => LoginScreen());
                               },
-                              child: Text('SignUp',
+                              child: Text('Login',
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold)),

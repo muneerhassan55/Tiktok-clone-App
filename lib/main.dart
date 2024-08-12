@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tictoc_clone_app/authentication/login_screen.dart';
 
 void main() {
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
         title: 'TicTok Clone',
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.black),

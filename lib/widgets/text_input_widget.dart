@@ -15,25 +15,29 @@ class TextInputWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: textEditingController,
-      decoration: InputDecoration(
-        labelText: labelString,
-        prefixIcon: iconData != null
-            ? Icon(iconData)
-            : Padding(
-                padding: EdgeInsets.all(8),
-                child: Image.asset(assetRefrence!),
-              ),
-        labelStyle: TextStyle(fontSize: 18),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6),
-            borderSide: BorderSide(color: Colors.grey)),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6),
-            borderSide: BorderSide(color: Colors.grey)),
+    return Container(
+      width: MediaQuery.sizeOf(context).width,
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      child: TextField(
+        controller: textEditingController,
+        decoration: InputDecoration(
+          labelText: labelString,
+          prefixIcon: iconData != null
+              ? Icon(iconData)
+              : Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Image.asset(assetRefrence!),
+                ),
+          labelStyle: TextStyle(fontSize: 18),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(6),
+              borderSide: BorderSide(color: Colors.grey)),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(6),
+              borderSide: BorderSide(color: Colors.grey)),
+        ),
+        obscureText: isObsecure,
       ),
-      obscureText: isObsecure,
     );
   }
 }
