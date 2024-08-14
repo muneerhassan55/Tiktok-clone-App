@@ -1,8 +1,19 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tictoc_clone_app/authentication/authentication_controller.dart';
 import 'package:tictoc_clone_app/authentication/login_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
+  await Firebase.initializeApp().then((value) {
+    Get.put(AuthenticationController());
+  });
   runApp(const MyApp());
 }
 

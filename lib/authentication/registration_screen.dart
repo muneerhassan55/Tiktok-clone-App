@@ -7,6 +7,7 @@ import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 import 'package:tictoc_clone_app/authentication/authentication_controller.dart';
 import 'package:tictoc_clone_app/authentication/login_screen.dart';
 
+import '../widgets/gloabl.dart';
 import '../widgets/text_input_widget.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -21,7 +22,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
   final authenticationController = Get.put(AuthenticationController());
-  bool showProgessBar = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,25 +52,35 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  AlertDialog(
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            authenticationController.captureImageWithCamera();
-                          },
-                          child: Column(
-                            children: [Icon(Icons.image), Text('Gallary')],
-                          )),
-                      TextButton(
-                          onPressed: () {
-                            authenticationController.captureImageWithCamera();
-                          },
-                          child: Column(
-                            children: [Icon(Icons.camera), Text('Camera')],
-                          ))
-                    ],
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              authenticationController.chooseImageFromGallary();
+                              Navigator.of(context)
+                                  .pop(); // Close the dialog after selection
+                            },
+                            child: Column(
+                              children: [Icon(Icons.image), Text('Gallery')],
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              authenticationController.captureImageWithCamera();
+                              Navigator.of(context)
+                                  .pop(); // Close the dialog after selection
+                            },
+                            child: Column(
+                              children: [Icon(Icons.camera), Text('Camera')],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   );
-                  authenticationController.chooseImageFromGallary();
                 },
                 child: CircleAvatar(
                   radius: 80,
@@ -119,6 +130,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               setState(() {
                                 showProgessBar = true;
                               });
+                              if (authenticationController
+                                          .profileImage !=
+                                      null &&
+                                  userNmaeTextEditingController
+                                      .text.isNotEmpty &&
+                                  emailTextEditingController.text.isNotEmpty &&
+                                  passwordTextEditingController
+                                      .text.isNotEmpty) {
+                                authenticationController
+                                    .createAccountForNewUser(
+                                        authenticationController.profileImage!,
+                                        userNmaeTextEditingController.text,
+                                        emailTextEditingController.text,
+                                        passwordTextEditingController.text);
+                              }
                             },
                             child: Center(
                               child: Text(
