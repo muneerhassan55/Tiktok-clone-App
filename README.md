@@ -1,16 +1,41 @@
-# tictoc_clone_app
+# Short Video App (TikTok-style clone)
 
-A new Flutter project.
+A Flutter short-video app inspired by TikTok, built on Firebase. The account and video upload flows are complete; the feed, search and profile tabs are scaffolded for the next stage.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+**Done**
+- Registration with profile photo and login with Firebase Auth
+- Bottom navigation with For You, Search, Upload, Following and Profile tabs
+- Video upload flow: pick a video from the gallery, preview it with `video_player`, add details, compress it with `video_compress` and upload it to Firebase Storage
+- Video details saved in Cloud Firestore
+- GetX for state management
 
-A few resources to get you started if this is your first Flutter project:
+**Planned**
+- Vertical For You and Following feeds
+- User search
+- Profile with uploaded videos and follow / unfollow
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Tech stack
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Flutter · Dart · GetX · Firebase Auth · Cloud Firestore · Firebase Storage · video_player · video_compress · image_picker
+
+## Project structure
+
+```
+lib/
+  authentication/   login, registration and auth controller
+  home/
+    upload_video/   pick, preview, compress and upload videos
+    for_you/        feed tab (scaffold)
+    following/      following tab (scaffold)
+    search/         search tab (scaffold)
+    profile/        profile tab (scaffold)
+  widgets/          shared widgets
+```
+
+## Getting started
+
+1. Install Flutter (3.x) and run `flutter pub get`.
+2. Run `flutterfire configure` to connect your own Firebase project, then enable Email/Password sign-in, Firestore and Storage.
+3. Run `flutter run`.
